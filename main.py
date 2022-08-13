@@ -8,13 +8,8 @@ BLACK = 0
 WHITE = 255
 
 husigidane = "husigidane.png"
-pickchu = "pika"
-gabigon = "gabigon.jpeg"
-hitokage = "hitokage.png"
-pika = "pika.png"
-
-inputpath = "images/" + pickchu + ".png"
-outputpath = "jsons/" + pickchu + ".json"
+inputpath =  husigidane
+outputpath = "jsons/" + "husigidane" + ".json"
 
 
 def cvtCannyImg(img):
@@ -47,8 +42,6 @@ def show(img):
 	cv.destroyAllWindows()
 
 # read img and rotate 90 degrees
-@click.command()
-@click.option('--filename',prompt="file name", help='image file name')
 def read_img(filename):
 	dirs = "images/"
 	img = cv.imread(dirs +filename)
@@ -63,9 +56,9 @@ def preprocessedImg(grayImg):
 	return rect
 
 if __name__ == "__main__":
-	img = read_img()
+	img = read_img(inputpath)
 	print("hello")
 	grayImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 	edgesImg = cvtCannyImg(grayImg)
 	filterdStrImg = cvtPixelValToStr(edgesImg)
-	print(json.dumps(filterdStrImg, indent=4))
+	saveToFile(filterdStrImg)
