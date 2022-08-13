@@ -1,3 +1,4 @@
+import queue
 import cv2 as cv
 import json
 import numpy as np
@@ -11,7 +12,7 @@ pickchu = "pika.png"
 gabigon = "gabigon.jpeg"
 hitokage = "hitokage.png"
 pika = "pika.png"
-path = "images/" + gabigon
+path = "images/" + pika
 
 def cvtCannyImg(img: Mat):
 	edges = cv.Canny(img,100,200)
@@ -25,7 +26,7 @@ def joinOneRowStr(filterdStrImg):
 		newStrImg.append(rowStr)
 	return newStrImg
 
-
+# グレーにした画像を文字列に変換するメソッド
 def cvtPixelValToStr(img):
 	strImg = []
 	point = "*"
@@ -37,9 +38,14 @@ def cvtPixelValToStr(img):
 				row.append(blank)
 			elif img[x][y] == WHITE:
 				row.append(point)
-		strImg.append(row)			
+		rowStr = "".join(row)
+		strImg.append(rowStr)		
 	return strImg
-	
+
+def saveToFile(imgStr):
+	filename = "./pika.json"
+	with open(filename, "w") as f:
+		json.dump(imgStr,f, indent=4)
 
 def show(img):
 	cv.imshow('window', img)
@@ -50,7 +56,7 @@ if __name__ == "__main__":
 	img = cv.imread(path,0)
 	grayImg = cv.cvtColor(img, cv.COLOR_BGR2RGB)
 	edgesImg = cvtCannyImg(grayImg)
+	show(edgesImg)
 	filterdStrImg = cvtPixelValToStr(edgesImg)
-	joinedRowStr = joinOneRowStr(filterdStrImg)
-	print(json.dumps(joinedRowStr, indent=4))
-	
+	saveToFile(filterdStrImg)
+	# joinedRowStr = joinOneRowStr(filterdStrImg)
