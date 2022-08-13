@@ -1,4 +1,3 @@
-import queue
 import cv2 as cv
 import json
 import numpy as np
@@ -20,7 +19,6 @@ def cvtCannyImg(img):
 	edges = cv.Canny(img,100,200)
 	return edges
 
-# グレーにした画像を文字列に変換するメソッド
 def cvtPixelValToStr(img):
 	H, W = img.shape
 	strImg = []
@@ -52,7 +50,7 @@ def read_img(filepath):
 	img = np.rot90(img)
 	return img
 
-# 画像の余白を削除するメソッド. remove blank 
+# remove margin 
 def preprocessedImg(grayImg):
 	coords = cv.findNonZero(grayImg)
 	x, y, w, h = cv.boundingRect(coords) 
@@ -64,4 +62,4 @@ if __name__ == "__main__":
 	grayImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 	edgesImg = cvtCannyImg(grayImg)
 	filterdStrImg = cvtPixelValToStr(edgesImg)
-	saveToFile(filterdStrImg, filepath=outputpath)
+	# saveToFile(filterdStrImg, filepath=outputpath)
