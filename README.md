@@ -1,4 +1,4 @@
-# pokemon-battle-cli
+# pokemon-img-json
 
 jsons/husigidane.json
 ```json
