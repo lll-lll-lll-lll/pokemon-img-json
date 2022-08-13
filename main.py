@@ -37,7 +37,7 @@ def show(img):
 	cv.destroyAllWindows()
 
 # read img and rotate 90 degrees
-def read_img(filename):
+def readImg(filename):
 	dirs = "images/"
 	img = cv.imread(dirs +filename)
 	img = np.rot90(img)
@@ -53,7 +53,7 @@ def preprocessedImg(grayImg):
 if __name__ == "__main__":
 	inputpath =  husigidane
 	outputpath = "jsons/" + "husigidane" + ".json"
-	img = read_img(inputpath)
+	img = readImg(inputpath)
 	grayImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 	edgesImg = cvtCannyImg(grayImg)
 	filterdStrImg = cvtPixelValToStr(edgesImg)
