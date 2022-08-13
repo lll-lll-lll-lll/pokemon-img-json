@@ -1,16 +1,11 @@
-from xml.etree.ElementTree import indent
 import cv2 as cv
 import json
 import numpy as np
-import click
 
 BLACK = 0
 WHITE = 255
 
 husigidane = "husigidane.png"
-inputpath =  husigidane
-outputpath = "jsons/" + "husigidane" + ".json"
-
 
 def cvtCannyImg(img):
 	edges = cv.Canny(img,100,200)
@@ -56,9 +51,10 @@ def preprocessedImg(grayImg):
 	return rect
 
 if __name__ == "__main__":
+	inputpath =  husigidane
+	outputpath = "jsons/" + "husigidane" + ".json"
 	img = read_img(inputpath)
-	print("hello")
 	grayImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 	edgesImg = cvtCannyImg(grayImg)
 	filterdStrImg = cvtPixelValToStr(edgesImg)
-	saveToFile(filterdStrImg)
+	saveToFile(filterdStrImg, outputpath)
